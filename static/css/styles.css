@@ -1,0 +1,240 @@
+.login-box {
+    width: 360px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #dddddd; /* Add a border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    margin: auto; /* Center horizontally */
+    margin-top: 40px;
+}
+
+.login-logo a {
+    color: #2c2c2c;
+    font-size: 24px;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 650;
+}
+
+.card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+}
+
+.login-card-body {
+    padding: 20px;
+}
+
+.form-control {
+    background-color: #ffffff;
+    border: 1px solid #555555;
+    color: #2c2c2c; /* Change the text color */
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    background-color: #ffffff;
+    border-color: #555555; /* Change the border color on focus */
+    color: #2c2c2c; /* Change the text color on focus */
+}
+
+.input-group-text {
+    background-color: #ffffff;
+    color: #2c2c2c; /* Change the icon color */
+    padding: 0;
+}
+
+.custom-select {
+    background-color: #ffffff;
+    border: 1px solid #555555;
+    color: #2c2c2c; /* Change the text color */
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.icheck-primary input[type="checkbox"]:checked + label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.alert {
+    margin-top: 15px;
+}
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70px; /* Collapsed width */
+    background-color: rgb(51, 128, 64);  /* Dark background color */
+    transition: width 0.3s ease;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.main-sidebar:hover {
+    width: 250px; /* Expanded width */
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above the sidebar */
+}
+
+.sidebar {
+    margin-top: 56px; /* Height of the top bar */
+    overflow-y: auto;
+    height: calc(100% - 56px); /* Adjust for top bar */
+    transition: width 0.3s ease;
+    z-index: 999; /* Ensure it's above other content */
+}
+
+.nav-sidebar {
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: -15px; /* Adjusted margin to align with the sidebar edge */
+}
+
+.nav-sidebar .nav-item {
+    width: 100%;
+}
+
+.nav-sidebar .nav-item .nav-link {
+    padding: 10px;
+    color: #ffffff;
+    display: flex;
+    justify-content: flex-start; /* Align text to the left */
+    align-items: center;
+}
+
+.nav-sidebar .nav-item .nav-link:hover {
+    background-color: #495057;
+}
+
+.nav-sidebar .nav-item .nav-link.active {
+    background-color: #495057;
+}
+
+.nav-sidebar .nav-item .nav-link i {
+    margin-right: 10px;
+}
+
+.nav-sidebar .nav-item .nav-link p {
+    margin: 0;
+}
+
+.nav-sidebar .nav-item .nav-link .right {
+    float: right;
+}
+
+.nav-sidebar .nav-treeview {
+    display: none;
+}
+
+body.sidebar-collapsed .nav-sidebar .nav-treeview {
+    display: none;
+}
+
+/* Adjust page content when sidebar is open */
+body.sidebar-open .page-content {
+    margin-left: 250px; /* Width of the expanded sidebar */
+    transition: margin-left 0.3s ease;
+}
+.admin-header {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: white; /* Assuming you want the text to remain white */
+}
+img#cimg {
+    height: 15vh;
+    width: 15vh;
+    object-fit: cover;
+    border-radius: 100%;
+}
+.btn-secondary-blue {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-secondary-blue:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+.btn-secondary-blue:focus, .btn-secondary-blue.focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+.navbar-nav img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.navbar-brand img {
+    margin-right: 5px;
+}
+
+.small-box .icon {
+    position: absolute;
+    top: 0;
+    right: 30px; /* Move the icon to the right */
+    z-index: 0;
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+.small-box .icon:hover {
+    transform: scale(1.2); /* Zoom effect on hover */
+}
+
+.small-box .inner h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    padding-left: 20px; /* Indentation */
+}
+
+.small-box .inner p {
+    font-size: 1.1rem;
+    padding-left: 20px; /* Indentation */
+}
+.btn-blue {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+.icon-light-gray {
+    color: lightgray;
+}
+.avatar-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: cover; /* Ensures the image covers the element without distorting */
+    border-radius: 50%; /* Makes the image circular */
+}

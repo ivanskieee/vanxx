@@ -1,0 +1,33 @@
+{% extends "student/layout.html" %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2>Welcome!</h2>
+                <br>
+                <div class="col-md-5">
+                    <div class="callout callout-info">
+                        <h5><b>Academic Year: Semester</b></h5>
+                        <h6><b>Evaluation Status: </b></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function() {
+            // Push a new state to the browser's history
+            window.history.pushState({}, '', window.location.href);
+            window.onpopstate = function() {
+                // Navigate to the current URL again
+                window.history.pushState({}, '', window.location.href);
+            };
+        };
+    </script>
+{% endblock %}
+

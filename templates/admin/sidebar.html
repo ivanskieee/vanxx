@@ -1,0 +1,128 @@
+<aside class="main-sidebar sidebar-success-primary elevation-4" id="navbar">
+    <!-- Branding and Sidebar Toggle -->
+    <div class="dropdown">
+        <a href="#" class="brand-link">
+            <h3 class="text-center p-0 m-0 mt-4 text-white admin-header"><a>Admin Panel</a></h3>
+        </a>
+        <!-- Sidebar Toggle Button -->
+    </div>
+
+    <!-- Sidebar Content -->
+    <div class="sidebar">
+        <nav class="mt-4 ml-4">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('home_admin') }}" class="nav-link nav-home">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('subject_list') }}" class="nav-link nav-subject_list">
+                        <i class="nav-icon fas fa-th-list"></i>
+                        <p>Subjects</p>
+                    </a>
+                </li> 
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('class_list') }}" class="nav-link nav-class_list">
+                        <i class="nav-icon fas fa-list-alt"></i>
+                        <p>Classes</p>
+                    </a>
+                </li> 
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('academic_list') }}" class="nav-link nav-academic_list">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>Academic Year</p>
+                    </a>
+                </li> 
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('questionnaire') }}" class="nav-link nav-questionnaire">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Questionnaires</p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('criteria_list') }}" class="nav-link nav-criteria_list">
+                        <i class="nav-icon fas fa-list-alt"></i>
+                        <p>Evaluation Criteria</p>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a href="#" class="nav-link showhidesm" data-toggle="collapse" aria-expanded="false">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Faculties
+                            <i class="right fas fa-angle-left mt-1 ml-2 arup"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview subMenus collapse" id="faculty-submenu">
+                        <li class="nav-item">
+                            <a href="{{ url_for('new_faculty') }}" class="nav-link nav-new_faculty tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>Add New</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('faculty_list') }}" class="nav-link nav-faculty_list tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>                 
+                <li class="nav-item">
+                    <a href="#" class="nav-link showhidesm" data-toggle="collapse" aria-expanded="false">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Students
+                            <i class="right fas fa-angle-left mt-1 ml-2 arup"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview subMenus collapse" id="faculty-submenu">
+                        <li class="nav-item">
+                            <a href="{{ url_for('new_student') }}" class="nav-link nav-new_student tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>Add New</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('student_list') }}" class="nav-link nav-student_list tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('report') }}" class="nav-link nav-report">
+                        <i class="nav-icon fas fa-list-alt"></i>
+                        <p>Evaluation Report</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link showhidesm" data-toggle="collapse" aria-expanded="false">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Users
+                            <i class="right fas fa-angle-left mt-1 ml-2 arup"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview subMenus collapse" id="faculty-submenu">
+                        <li class="nav-item">
+                            <a href="{{ url_for('new_user') }}" class="nav-link nav-new_user tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>Add New</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('user_list') }}" class="nav-link nav-user_list tree-item">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

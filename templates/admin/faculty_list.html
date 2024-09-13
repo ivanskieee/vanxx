@@ -1,0 +1,96 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card card-outline card-success">
+            <div class="card-header">
+                <div class="card-tools">
+                    <a class="btn btn-secondary btn-sm btn-default btn-flat border-primary" href="{{ url_for('new_faculty') }}"><i class="fa fa-plus"></i> Add New Faculty</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search Faculty">
+                    </div>
+                </div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div id="flashMessage" class="alert alert-success">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <table class="table table-hover table-bordered" id="list">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>School ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for faculty in faculties %}
+                        <tr data-id="{{ faculty.id }}">
+                            <th class="text-center">{{ loop.index }}</th>
+                            <td><b>{{ faculty.school_id }}</b></td>
+                            <td><b>{{ faculty.firstname }} {{ faculty.lastname }}</b></td>
+                            <td><b>{{ faculty.email }}</b></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item view_faculty" href="javascript:void(0)" data-id="{{ faculty.id }}">View</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url_for('new_faculty', id=faculty.id) }}">Edit</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item delete_faculty"  href="{{ url_for('delete_faculty', id=faculty.id) }}" data-id="{{ faculty.id }}">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p id="noRecordsMessage" style="display: none; text-align: center; color: black;">No matching records found</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            var searchValue = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#list tbody tr');
+            var noRecordsMessage = document.getElementById('noRecordsMessage');
+            var matchesFound = false;
+
+            rows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                var matches = false;
+
+                cells.forEach(function(cell) {
+                    if (cell.textContent.toLowerCase().includes(searchValue)) {
+                        matches = true;
+                    }
+                });
+
+                if (matches) {
+                    row.style.display = '';
+                    matchesFound = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            if (matchesFound) {
+                noRecordsMessage.style.display = 'none';
+            } else {
+                noRecordsMessage.style.display = '';
+            }
+        });
+    </script>
+{% endblock %}

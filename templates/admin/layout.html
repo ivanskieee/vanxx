@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .bg-navbar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: rgb(51, 128, 64);
+            transition: margin-left 0.3s ease;
+        }
+        .input-group-text {
+            position: absolute;
+            right: 10px;
+            font-size: 1.2em;
+            top: 9px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color:  rgb(51, 128, 64); 
+            transition: transform 0.3s ease;
+        }
+        .sidebar.collapsed {
+            transform: translateX(-250px);
+        }
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+        .main-content.collapsed {
+            margin-left: 0;
+        }
+        .navbar.collapsed {
+            margin-left: 0;
+        }
+        .bg-navbar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: rgb(51, 128, 64);
+        }
+        .input-group-text{
+            position: absolute;
+            right: 10px;
+            font-size: 1.2em;
+            top: 9px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-navbar" id="navbar">
+        <a class="navbar-brand text-white d-flex align-items-center" href="#">
+            <button type="button" class="btn navbar-btn text-white ml-5" id="sidebarToggle">
+                <i class="fas fa-bars bars-icon"></i>
+            </button>
+            <img src="{{ url_for('static', filename='css/assets/images/spclog.png') }}" alt="SPC Logo" width="30" height="30" class="d-inline-block align-text-top me-2 mr-2">
+            SPC Evaluation System
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if session.get('login_id') %}
+                    <li class="nav-item dropdown d-flex align-items-center">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ url_for('static', filename='css/assets/images/' ~ avatar_path) }}" alt="User Image" class="avatar-icon" id="userAvatar">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>        
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                {% block sidebar %}
+                {% include 'admin/sidebar.html' %}
+                {% endblock %}
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col main-content mt-5" id="mainContent">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+     <!-- jQuery -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+     <script>
+        document.addEventListener('click', function(e){
+            let clickedEl = e.target;
+    
+            if(clickedEl.classList.contains('showhidesm')){
+                let subMenu = clickedEl.closest('li').querySelector('.subMenus');
+                let mainMenuicon = clickedEl.closest('li').querySelector('.arup');
+    
+                let subMenus = document.querySelectorAll('.subMenus');
+                subMenus.forEach((sub) => {
+                    if(subMenu !== sub) sub.style.display = 'none';
+                });
+    
+                showHideSubMenu(subMenu, mainMenuicon);
+            }
+        });
+    
+        function showHideSubMenu(subMenu, mainMenuicon) {
+            if (subMenu.style.display === 'none' || subMenu.style.display === '') {
+                subMenu.style.display = 'block';
+                mainMenuicon.classList.remove('fa-angle-left');
+                mainMenuicon.classList.add('fa-angle-down');
+            } else {
+                subMenu.style.display = 'none';
+                mainMenuicon.classList.remove('fa-angle-down');
+                mainMenuicon.classList.add('fa-angle-left');
+            }
+        }
+    </script>    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const navbar = document.getElementById("navbar");
+
+            sidebarToggle.addEventListener("click", function() {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("collapsed");
+                navbar.classList.toggle("collapsed");
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lockIcon = document.getElementById("lock-icon");
+            let password = document.getElementById("password");
+    
+            lockIcon.addEventListener("click", function() {
+                if(password.type === "password") {
+                    password.type = "text";
+                    lockIcon.classList.remove("fas fa-lock");
+                    lockIcon.classList.add("fas fa-lock");
+                } else {
+                    password.type = "password";
+                    lockIcon.classList.remove("fas fa-lock");
+                    lockIcon.classList.add("fas fa-lock");
+                }
+            });
+        });
+    </script>
+    <script>
+        var currentUrl = window.location.href;
+        $('.nav-link').each(function() {
+            if (this.href === currentUrl) {
+                $(this).addClass('active');
+                $(this).parents('.nav-item').addClass('menu-open');
+                $(this).parents('.nav-treeview').prev('.nav-link').addClass('active');
+            }
+        });  
+    </script>
+    <script>
+        window.onload = function() {
+            window.history.pushState({}, '', window.location.href);
+            window.onpopstate = function() {
+                window.history.pushState({}, '', window.location.href);
+            };
+        };
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').on('click', function(e) {
+                var $el = $(this).next('.dropdown-menu');
+                $('.dropdown-menu').not($el).hide();
+                $el.toggle();
+                e.stopPropagation();
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown-menu').length) {
+                    $('.dropdown-menu').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        am5.ready(function() {
+        
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv");
+        
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+          am5themes_Animated.new(root)
+        ]);
+        
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+        var chart = root.container.children.push(
+          am5percent.PieChart.new(root, {
+            endAngle: 270
+          })
+        );
+        
+        // Create series
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+        var series = chart.series.push(
+          am5percent.PieSeries.new(root, {
+            valueField: "value",
+            categoryField: "category",
+            endAngle: 270
+          })
+        );
+        
+        series.states.create("hidden", {
+          endAngle: -90
+        });
+        
+        // Set data
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+        series.data.setAll([{
+          category: "Lithuania",
+          value: 501.9
+        }, {
+          category: "Czechia",
+          value: 301.9
+        }, {
+          category: "Ireland",
+          value: 201.1
+        }, {
+          category: "Germany",
+          value: 165.8
+        }, {
+          category: "Australia",
+          value: 139.9
+        }, {
+          category: "Austria",
+          value: 128.3
+        }, {
+          category: "UK",
+          value: 99
+        }]);
+        
+        series.appear(1000, 100);
+        
+        }); 
+        </script>
+        <script>
+            function displayImg(input, imgElement) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+        
+                    reader.onload = function (e) {
+                        imgElement.attr('src', e.target.result);
+                    };
+        
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+</body>
+</html>
+

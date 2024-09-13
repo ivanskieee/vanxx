@@ -1,0 +1,70 @@
+{% extends "student/layout.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                {% for restriction in restrictions %}
+                    <a class="list-group-item list-group-item-action {% if restriction_id == restriction.id %}active{% endif %}" href="{{ url_for('evaluation_student', rid=restriction.id, sid=restriction.sid, fid=restriction.fid) }}">
+                        {{ restriction.faculty }} - ({{ restriction.code }}) {{ restriction.subject }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card card-outline card-info">
+                <div class="card-header">
+                    <b>Evaluation Questionnaire for Academic</b>
+                    <div class="card-tools">
+                        <button class="btn btn-sm btn-flat btn-primary bg-gradient-primary mx-1" form="manage-evaluation">Submit Evaluation</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <fieldset class="border border-info p-2 w-100">
+                        <legend class="w-auto">Rating Legend</legend>
+                        <p>5 = Strongly Agree, 4 = Agree, 3 = Uncertain, 2 = Disagree, 1 = Strongly Disagree</p>
+                    </fieldset>
+                    <form id="manage-evaluation" method="post" action="">
+                        
+                        <div class="clear-fix mt-2"></div>
+                        {% for criterion in criteria %}
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr class="bg-gradient-secondary">
+                                        <th class="p-1"><b>{{ criterion.criteria }}</b></th>
+                                        <th class="text-center">1</th>
+                                        <th class="text-center">2</th>
+                                        <th class="text-center">3</th>
+                                        <th class="text-center">4</th>
+                                        <th class="text-center">5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tr-sortable">
+                                    {% for question in questions[criterion.id] %}
+                                        <tr class="bg-white">
+                                            <td class="p-1" width="40%">
+                                                {{ question.question }}
+                                                <input type="hidden" name="qid[]" value="{{ question.id }}">
+                                            </td>
+                                            {% for c in range(1, 6) %}
+                                                <td class="text-center">
+                                                    <div class="icheck-success d-inline">
+                                                        <input type="radio" name="rate[{{ question.id }}]" {% if c == 5 %}checked{% endif %} id="qradio{{ question.id }}_{{ c }}" value="{{ c }}">
+                                                        <label for="qradio{{ question.id }}_{{ c }}"></label>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ 'Edit Criteria' if criteria else 'New Criteria' }}</h1>
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="criteria">Criteria</label>
+            <input type="text" name="criteria" id="criteria" class="form-control" 
+                   value="{{ criteria['criteria'] if criteria else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="order_by">Order By</label>
+            <select class="form-control" id="order_by" name="order_by" required>
+                <option value="" disabled selected>Select Faculty</option>
+                {% for faculty in faculty_list %}
+                <option value="{{ faculty.id }}" {% if question_data and faculty.id == question_data.order_by %} selected {% endif %}>{{ faculty.schoool_id }} - {{ faculty.firstname }} {{ faculty.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-secondary-blue mr-3">Submit</button>
+        <a href="{{ url_for('criteria_list') }}" class="btn btn-secondary ml-2">Back to Criteria List</a>
+    </form>
+</div>
+{% endblock %}

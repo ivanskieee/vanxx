@@ -1,0 +1,77 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1>Welcome {{ login_name }}! 
+                    <a href="{{ url_for('homeadminchart') }}" class="float-right icon-light-gray">
+                        <i class="fa fa-chart-pie"></i>
+                    </a>
+                </h1>
+                <div class="col-md-5">
+                    <div class="callout callout-info">
+                        <h5><b>Academic Year: Semester</b></h5>
+                        <h6><b>Evaluation Status: </b></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="small-box bg-light shadow-sm border">
+                    <div class="inner">
+                        <h3>{{ total_faculty }}</h3> <!-- Display total faculty count here -->
+                        <p>Total Faculties</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-user-friends"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="small-box bg-light shadow-sm border">
+                    <div class="inner">
+                        <h3>{{ total_students }}</h3> <!-- Display total students count here -->
+                        <p>Total Students</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="small-box bg-light shadow-sm border">
+                    <div class="inner">
+                        <h3>{{ total_users }}</h3> <!-- Display total users count here -->
+                        <p>Total Users</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="small-box bg-light shadow-sm border">
+                    <div class="inner">
+                        <h3>{{ total_classes }}</h3> <!-- Display total classes count here -->
+                        <p>Total Classes</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-list-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    <script>
+        window.onload = function() {
+            // Push a new state to the browser's history
+            window.history.pushState({}, '', window.location.href);
+            window.onpopstate = function() {
+                // Navigate to the current URL again
+                window.history.pushState({}, '', window.location.href);
+            };
+        };
+    </script>

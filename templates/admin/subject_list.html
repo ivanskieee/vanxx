@@ -1,0 +1,96 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card card-outline card-success">
+        <div class="card-header">
+            <div class="card-tools">
+                <a class="btn btn-secondary btn-sm btn-default btn-flat border-primary" href="{{ url_for('new_subject') }}"><i class="fa fa-plus"></i> Add Subject</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search Subject">
+                </div>
+            </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div id="flashMessage" class="alert alert-success">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <table class="table table-hover table-bordered" id="list">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Code</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subject in subjects %}
+                    <tr>
+                        <td class="text-center">{{ loop.index }}</td>
+                        <td><b>{{ subject.code }}</b></td>
+                        <td><b>{{ subject.subject }}</b></td>
+                        <td><b>{{ subject.description }}</b></td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                  Action
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ url_for('new_subject', id=subject.id) }}">Edit</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="{{ url_for('delete_subject', id=subject.id) }}" method="POST"  class="delete-form">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="dropdown-item delete_student" data-id="{{ subject.id }}">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p id="noRecordsMessage" style="display: none; text-align: center; color: black;">No matching records found</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#list tbody tr');
+        var noRecordsMessage = document.getElementById('noRecordsMessage');
+        var matchesFound = false;
+
+        rows.forEach(function(row) {
+            var cells = row.querySelectorAll('td');
+            var matches = false;
+
+            cells.forEach(function(cell) {
+                if (cell.textContent.toLowerCase().includes(searchValue)) {
+                    matches = true;
+                }
+            });
+
+            if (matches) {
+                row.style.display = '';
+                matchesFound = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (matchesFound) {
+            noRecordsMessage.style.display = 'none';
+        } else {
+            noRecordsMessage.style.display = '';
+        }
+    });
+</script>
+{% endblock %}

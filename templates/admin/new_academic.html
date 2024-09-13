@@ -1,0 +1,46 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" id="new_academic" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6 border-right">
+                        <div class="form-group">
+                            <label for="year" class="control-label">Year</label>
+                            <input type="text" class="form-control form-control-sm" id="year" name="year" required value="{{ academic.year if academic else '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="semester" class="control-label">Semester</label>
+                            <input type="text" class="form-control form-control-sm" id="semester" name="semester" required value="{{ academic.semester if academic else '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="is_default" class="control-label">System Default</label>
+                            <select class="form-control form-control-sm" id="is_default" name="is_default">
+                                <option value="0" {% if academic and academic.is_default==0 %}selected{% endif %}>No</option>
+                                <option value="1" {% if academic and academic.is_default==1 %}selected{% endif %}>Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="status" class="control-label">Evaluation Status</label>
+                            <select class="form-control form-control-sm" id="status" name="status">
+                                <option value="0" {% if academic and academic.status==0 %}selected{% endif %}>Not yet Started</option>
+                                <option value="1" {% if academic and academic.status==1 %}selected{% endif %}>Starting</option>
+                                <option value="2" {% if academic and academic.status==2 %}selected{% endif %}>Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="col-lg-12 text-right justify-content-center d-flex">
+                    <button type="submit" class="btn btn-secondary btn-secondary-blue mr-3">{{ 'Update' if academic else 'Add' }} Academic</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href = '/academic-year';">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

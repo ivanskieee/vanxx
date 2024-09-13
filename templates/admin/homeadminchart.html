@@ -1,0 +1,17 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h1>
+                    Pie Chart By Academic Year
+                    <a href="{{ url_for('home_admin') }}" class="float-right icon-light-gray">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </h1>
+                <div id="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

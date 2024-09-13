@@ -1,0 +1,29 @@
+<aside class="main-sidebar sidebar-success-primary elevation-4" id="navbar">
+    <!-- Branding and Sidebar Toggle -->
+    <div class="dropdown">
+        <a href="#" class="brand-link">
+            <h3 class="text-center p-0 m-0 mt-4 text-white admin-header"><a>Faculty Panel</a></h3>
+        </a>
+        <!-- Sidebar Toggle Button -->
+    </div>
+
+    <!-- Sidebar Content -->
+    <div class="sidebar">
+        <nav class="mt-4 ml-4">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item dropdown">
+                    <a href="{{ url_for('home_faculty') }}" class="nav-link nav-home">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link nav-subject_list">
+                        <i class="nav-icon fas fa-th-list"></i>
+                        <p>Evaluation Result</p>
+                    </a>
+                </li> 
+            </ul>
+        </nav>
+    </div>
+</aside>

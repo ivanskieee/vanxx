@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a href="#">Login</a>
+                </div>
+                <!-- /.login-logo -->
+                <div class="card">
+                    <div class="card-body login-card-body">
+                        <form action="{{ url_for('login') }}" method="POST" id="login-form">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" name="email" required placeholder="Email" value="{{ request.cookies.get('email', '') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" name="password" id="password" required placeholder="Password" value="{{ request.cookies.get('password', '') }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="lock-icon"><i class="fas fa-lock"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="login">Login As</label>
+                                <select name="login" id="login" class="custom-select custom-select-sm" required>
+                                    <option value="">Select</option>
+                                    <option value="3">Student</option>
+                                    <option value="2">Faculty</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                            </div>
+                            <div class="icheck-primary mb-3 text-left">
+                                <input type="checkbox" id="remember" name="remember" {{ 'checked' if request.cookies.get('email') else '' }}>
+                                <label for="remember">Remember Me</label>
+                            </div>
+                            <div id="loading-spinner" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Logging in...
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </form>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <!-- /.login-card-body -->
+                </div>
+            </div>
+            <!-- /.login-box -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+

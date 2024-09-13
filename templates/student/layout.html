@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .bg-navbar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: rgb(51, 128, 64);
+            transition: margin-left 0.3s ease;
+        }
+        .input-group-text {
+            position: absolute;
+            right: 10px;
+            font-size: 1.2em;
+            top: 9px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color:  rgb(51, 128, 64); 
+            transition: transform 0.3s ease;
+        }
+        .sidebar.collapsed {
+            transform: translateX(-250px);
+        }
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+        .main-content.collapsed {
+            margin-left: 0;
+        }
+        .navbar.collapsed {
+            margin-left: 0;
+        }
+        .bg-navbar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: rgb(51, 128, 64);
+        }
+        .input-group-text{
+            position: absolute;
+            right: 10px;
+            font-size: 1.2em;
+            top: 9px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-navbar" id="navbar">
+        <a class="navbar-brand text-white d-flex align-items-center" href="#">
+            <button type="button" class="btn navbar-btn text-white ml-5" id="sidebarToggle">
+                <i class="fas fa-bars bars-icon"></i>
+            </button>
+            <img src="{{ url_for('static', filename='css/assets/images/spclog.png') }}" alt="SPC Logo" width="30" height="30" class="d-inline-block align-text-top me-2 mr-2">
+            SPC Evaluation System
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown d-flex align-items-center">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ url_for('static', filename='css/assets/images/logss.jpg') }}" alt="Fixed Image" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                {% block sidebar %}
+                {% include 'student/sidebar.html' %}
+                {% endblock %}
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col main-content mt-5" id="mainContent">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+     <!-- jQuery -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+     <script>
+        document.addEventListener('click', function(e){
+            let clickedEl = e.target;
+    
+            if(clickedEl.classList.contains('showhidesm')){
+                let subMenu = clickedEl.closest('li').querySelector('.subMenus');
+                let mainMenuicon = clickedEl.closest('li').querySelector('.arup');
+    
+                let subMenus = document.querySelectorAll('.subMenus');
+                subMenus.forEach((sub) => {
+                    if(subMenu !== sub) sub.style.display = 'none';
+                });
+    
+                showHideSubMenu(subMenu, mainMenuicon);
+            }
+        });
+    
+        function showHideSubMenu(subMenu, mainMenuicon) {
+            if (subMenu.style.display === 'none' || subMenu.style.display === '') {
+                subMenu.style.display = 'block';
+                mainMenuicon.classList.remove('fa-angle-left');
+                mainMenuicon.classList.add('fa-angle-down');
+            } else {
+                subMenu.style.display = 'none';
+                mainMenuicon.classList.remove('fa-angle-down');
+                mainMenuicon.classList.add('fa-angle-left');
+            }
+        }
+    </script>    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const navbar = document.getElementById("navbar");
+
+            sidebarToggle.addEventListener("click", function() {
+                sidebar.classList.toggle("collapsed");
+                mainContent.classList.toggle("collapsed");
+                navbar.classList.toggle("collapsed");
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lockIcon = document.getElementById("lock-icon");
+            let password = document.getElementById("password");
+    
+            lockIcon.addEventListener("click", function() {
+                if(password.type === "password") {
+                    password.type = "text";
+                    lockIcon.classList.remove("fas fa-lock");
+                    lockIcon.classList.add("fas fa-lock");
+                } else {
+                    password.type = "password";
+                    lockIcon.classList.remove("fas fa-lock");
+                    lockIcon.classList.add("fas fa-lock");
+                }
+            });
+        });
+    </script>
+    <script>
+        var currentUrl = window.location.href;
+        $('.nav-link').each(function() {
+            if (this.href === currentUrl) {
+                $(this).addClass('active');
+                $(this).parents('.nav-item').addClass('menu-open');
+                $(this).parents('.nav-treeview').prev('.nav-link').addClass('active');
+            }
+        });  
+    </script>
+    <script>
+        window.onload = function() {
+            window.history.pushState({}, '', window.location.href);
+            window.onpopstate = function() {
+                window.history.pushState({}, '', window.location.href);
+            };
+        };
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-toggle').on('click', function(e) {
+                var $el = $(this).next('.dropdown-menu');
+                $('.dropdown-menu').not($el).hide();
+                $el.toggle();
+                e.stopPropagation();
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown-menu').length) {
+                    $('.dropdown-menu').hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
